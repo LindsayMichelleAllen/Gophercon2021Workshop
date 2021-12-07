@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Go Bootcamp</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  <link rel="stylesheet" href="github.css">
+  <base target="_blank">
+
+  <style>
+    body {
+        font-family: 'Roboto Slab', serif;
+    }
+    p.url {
+	font-family: Monospace;
+    }
+    span.line-numbers {
+        padding-right: 1em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="go-security-workshop">Go Security Workshop</h1>
+
+<p>GopherCon ∴  December 2021 <br /><br />
+URL: <a href="http://www.353solutions.com/c/gosec-gc21">www.353solutions.com/c/gosec-gc21/</a> (<a href="353-go-workshop.zip">Download Zip</a> - Unzip and open <code>README.html</code>)</p>
+
+<!--
+-->
+
+<p>Miki Tebeka <i class="far fa-envelope"></i> <a href="mailto:miki@353solutions.com">miki@353solutions.com</a>, <i class="fab fa-twitter"></i> <a href="https://twitter.com/tebeka">@tebeka</a>, <i class="fab fa-linkedin-in"></i> <a href="https://www.linkedin.com/in/mikitebeka/">mikitebeka</a>, <i class="fab fa-blogger-b"></i> <a href="https://www.ardanlabs.com/blog/">blog</a>  <br />
+Yoni Davidson <i class="far fa-envelope"></i> <a href="mailto:yoni@ariga.io">yoni@ariga.io</a>, , <i class="fab fa-twitter"></i> <a href="https://twitter.com/yonidavidson">@yonidavidson</a>, <i class="fab fa-linkedin-in"></i> <a href="https://www.linkedin.com/in/yoni-davidson-35b53222/">yoni-davidson</a></p>
+
+<h4 id="shameless-plugs">Shameless Plugs</h4>
+
+<ul>
+  <li><a href="https://pragprog.com/titles/d-gobrain/go-brain-teasers/">Go Brain Teasers</a></li>
+  <li><a href="https://www.linkedin.com/learning/instructors/miki-tebeka">LinkedIn Learning</a></li>
+</ul>
+
+<h1 id="code">Code</h1>
+
+<ul>
+  <li><a href="html/journal/Makefile.html">Makefile</a> - Automation (test &amp; gen-certs)</li>
+  <li><a href="html/journal/go.mod.html">go.mod</a> - Dependencies</li>
+  <li><a href="html/journal/main.go.html">main.go</a> - HTTP server</li>
+  <li><a href="html/journal/db.go.html">db.go</a> - Database code</li>
+  <li><a href="html/journal/entry.go.html">entry.go</a> - Entry definition</li>
+  <li><a href="html/journal/profile.go.html">profile.go</a> - Profiling endpoint</li>
+</ul>
+
+<p><a href="terminal.log">Terminal Log</a></p>
+
+<h1 id="links">Links</h1>
+
+<ul>
+  <li><a href="https://dave.cheney.net/2015/11/05/lets-talk-about-logging">Let’s talk about logging</a> by Dave Cheney</li>
+  <li><a href="https://golang.org/security">Go Security Policy</a></li>
+  <li><a href="https://github.com/guardrailsio/awesome-golang-security">Awesome security tools</a></li>
+  <li><a href="https://monzo.com/blog/2019/10/11/how-our-security-team-handle-secrets">How our security team handles secrets</a></li>
+  <li>HTTPS
+    <ul>
+      <li><code>openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes -subj /CN=localhost</code></li>
+      <li><a href="https://pkg.go.dev/golang.org/x/crypto/acme/autocert">x/crypto/autocert</a></li>
+      <li><a href="https://marcofranssen.nl/build-a-go-webserver-on-http-2-using-letsencrypt">Using Let’s Encrypt in Go</a></li>
+    </ul>
+  </li>
+  <li><a href="https://www.digitalocean.com/community/tutorials/customizing-go-binaries-with-build-tags">Customizing Binaries with Build Tags</a></li>
+  <li>Books
+    <ul>
+      <li><a href="https://www.packtpub.com/product/security-with-go/9781788627917">Security with Go</a></li>
+      <li><a href="https://nostarch.com/blackhatgo">Black Hat Go</a> book</li>
+    </ul>
+  </li>
+  <li><a href="https://grep.app/search?current=3&amp;q=AWS_SECRET_ACCESS_KEY%3D%22.%7B40%7D%22&amp;regexp=true">Search for AWS Keys in GitHub</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing#The_fallacies">Fallacies of distributed computing</a></li>
+  <li><a href="https://cuelang.org/">cue</a> - Language for data validation</li>
+  <li>Serialization Vulnerabilities
+    <ul>
+      <li><a href="https://en.wikipedia.org/wiki/Billion_laughs_attack">XML Billion Laughs</a> attack</li>
+      <li><a href="https://www.exploringbinary.com/java-hangs-when-converting-2-2250738585072012e-308/">Java Parse Float</a></li>
+    </ul>
+  </li>
+  <li><a href="https://blog.lu4p.xyz/posts/golang-template-turbo/">Understanding HTML templates in Go</a></li>
+  <li>SQL
+    <ul>
+      <li><a href="https://golang.org/pkg/database/sql/">database/sql</a></li>
+      <li><a href="https://github.com/jmoiron/sqlx">sqlx</a></li>
+      <li><a href="https://gorm.io/index.html">gorm</a></li>
+    </ul>
+  </li>
+  <li><a href="https://ieftimov.com/post/make-resilient-golang-net-http-servers-using-timeouts-deadlines-context-cancellation/">Resilient net/http servers</a></li>
+  <li><a href="https://blog.golang.org/context">Context</a> on the Go blog</li>
+  <li><a href="https://www.digitalocean.com/community/tutorials/customizing-go-binaries-with-build-tags">Customizing Binaries with Build Tags</a></li>
+  <li><a href="https://research.swtch.com/deps">Our Software Depenedcy Problem</a></li>
+  <li><a href="https://www.cvedetails.com/vulnerability-list/vendor_id-14185/Golang.html">Go’s CVE List</a></li>
+  <li>Static tools
+    <ul>
+      <li><a href="https://golangci-lint.run/">golangci-lint</a></li>
+      <li><a href="https://github.com/securego/gosec">gosec</a></li>
+      <li><a href="https://staticcheck.io/">staticcheck</a></li>
+      <li>Use <a href="https://pkg.go.dev/golang.org/x/tools/go/analysis">x/tools/analysis</a> to write your own (see <a href="https://github.com/tebeka/recheck">here</a> for an example)</li>
+    </ul>
+  </li>
+  <li>The new<a href="https://golang.org/pkg/embed/">embed</a> package</li>
+  <li><a href="https://owasp.org/www-project-top-ten/">OWASP Top 10</a></li>
+  <li><a href="https://www.schneier.com/blog/archives/2008/03/the_security_mi_1.html">The Security Mindset</a> by Bruce Schneier</li>
+  <li><a href="https://golang.org/doc/effective_go.html">Effective Go</a> - Read this!</li>
+</ul>
+
+<!--
+- [Fork bomb](https://en.wikipedia.org/wiki/Fork_bomb)
+- [Cloudflare down due to regular expression](https://blog.cloudflare.com/details-of-the-cloudflare-outage-on-july-2-2019/)
+- [Systems that Run Forever Self-heal and Scale](https://www.infoq.com/presentations/self-heal-scalable-system/) by Joe Armstrong
+- If you want to use PostgreSQL
+    - `docker pull postgres:13-alpine`
+    - `docker run -e POSTGRES_PASSWORD=s3cr3t --name postgres -d -p5432:5432 postgres:13-alpine`
+    - `import _ "github.com/lib/pq"` (pure Go)
+    - `sql.Open("postgres", "user=postgres password=s3cr3t sslmode=disable")`
+    - Finally: `docker rm -f postgres`
+-->
+
+<h1 id="data--other">Data &amp; Other</h1>
+
+<ul>
+  <li><a href="data/journal.zip">journal.zip</a> - Initial code</li>
+  <li><a href="data/slides.pdf">slides</a></li>
+  <li>entries
+    <ul>
+      <li><a href="data/add-1.json">add-1.json</a></li>
+      <li><a href="data/add-2.json">add-2.json</a></li>
+      <li><a href="data/add-3.json">add-3.json</a></li>
+    </ul>
+  </li>
+  <li><code>docker run -d -e POSTGRES_HOST_AUTH_METHOD=trust -p 5432:5432 postgres:14-alpine</code></li>
+  <li><code>docker exec -it &lt;ID&gt; psql -U postgres</code></li>
+  <li><code>openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes -subj /CN=localhost</code></li>
+  <li><code>curl -d@add-1.json http://localhost:8080/new</code></li>
+</ul>
+
+    <hr />
+    Copyright&copy; <a href="http://www.353solutions.com" target="_blank">353solutions</a> <b>All rights reserved, DO NOT COPY!</b>
+  </div>
+</body>
+</html>
